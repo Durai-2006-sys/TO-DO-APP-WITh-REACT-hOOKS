@@ -1,0 +1,79 @@
+Body {    
+  Font-family: “Segoe UI”, sans-serif;    
+  Background: #f5f6fa;    
+  Display: flex;    
+Justify-content: center;    
+  Align-items: center;    
+  Height: 100vh;    
+  Margin: 0;    
+}    
+    
+#app {    
+  Width: 380px;    
+  Background: white;    
+  Padding: 25px;    
+  Border-radius: 15px;    
+Box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);    
+}    
+    
+.screen {    
+  Text-align: center;    
+}    
+    
+.hidden {    
+  Display: none;    
+}    
+    
+Input {    
+Width: 80%;    
+  Padding: 10px;    
+  Margin: 8px 0;    
+  Border: 1px solid #ccc;    
+  Border-radius: 8px;    
+  Font-size: 16px;    
+}    
+    
+Button {    
+  Padding: 10px 15px;    
+  Background: #007bff;    
+Color: white;    
+  Border: none;    
+  Border-radius: 8px;    
+  Cursor: pointer;    
+  Font-size: 15px;    
+}    
+    
+Button:hover {   Background: #0056b3;    
+}    
+    
+Ul {    
+  List-style: none;    
+Padding: 0;    
+}    
+    
+Li {    
+  Display: flex;    
+  Justify-content: space-between;    
+  Align-items: center;    
+  Background: #f1f3f6;    
+  Margin: 6px 0;    
+  Padding: 10px;    
+  Border-radius: 8px;    
+Font-size: 16px;    
+}    
+    
+li.completed span {   textdecoration: linethrough;   color:   
+gray;  }    
+    
+.top-bar {    
+  Display: flex;    
+  Justify-content: space-between;    
+  Align-items: center;    
+  Margin-bottom: 15px;    
+}    
+    
+#loginError {    
+  Color: red;    
+  Margin-top: 10px;    
+  Font-size: 14px;    
+}
