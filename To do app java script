@@ -1,0 +1,78 @@
+Const API_URL = http://localhost:5000/api;    
+Const loginScreen = document.getElementById(“login-screen”);    
+Const todoScreen = document.getElementById(“todo-screen”);    Const usernameInput = document.getElementById(“username”);    
+Const passwordInput = document.getElementById(“password”);    
+Const loginBtn = document.getElementById(“loginBtn”);    
+Const loginError = document.getElementById(“loginError”);    
+Const newTodoInput = document.getElementById(“newTodo”);    
+Const addBtn = document.getElementById(“addBtn”);    
+Const todoList = document.getElementById(“todoList”);    
+Const welcomeUser = document.getElementById(“welcomeUser”);    
+Const logoutBtn = document.getElementById(“logoutBtn”);    
+    
+Let token = localStorage.getItem(“token”);    
+Let username = localStorage.getItem(“username”);    
+    
+// Auto-login if token exists If   
+(token) {     
+showTodoScreen();   fetchTodos();    
+}    
+    
+// Handle login loginBtn.addEventListener(“click”, async () => {   const username = usernameInput.value.trim();   const password = passwordInput.value.trim();    
+    
+  const res = await fetch(`${API_URL}/login`, {     method: “POST”,     headers: { “Content-Type”: 
+“application/json” },     body: JSON.stringify({ username, password }),    
+  });    
+    
+  If (res.ok) {    
+    Const data = await res.json();     localStorage.setItem(“token”, data.token);     localStorage.setItem(“username”, data.username);     showTodoScreen();     fetchTodos();    
+  } else {    
+    loginError.textContent = “❌ Invalid username or password”;     
+}    
+});    
+    
+Function showTodoScreen() {   loginScreen.classList.add(“hidden”);   todoScreen.classList.remove(“hidden”);    welcomeUser.textContent = `Welcome,  
+${localStorage.getItem(“username”)}!`;    
+}    
+    
+// Fetch todos    
+Async function fetchTodos() {   todoList.innerHTML = “Loading…”;   const res  
+= await fetch(`${API_URL}/todos`, {     headers:  
+{ Authorization: `Bearer   
+${localStorage.getItem(“token”)}` },    
+  });    
+  Const todos = await res.json();    
+    
+  todoList.innerHTML = “”;   todos.forEach(renderTodo);    
+}    
+    
+// Render single todo item    
+Function renderTodo(todo) {    
+  Const li = document.createElement(“li”);   li.classList.toggle(“completed”, todo.completed);    
+    
+  const span = document.createElement(“span”);   span.textContent = todo.title;   span.addEventListener(“click”,  
+() => toggleTodo(todo));    
+    
+  const delBtn = document.createElement(“button”);   delBtn.textContent = “❌”;   delBtn.addEventListener(“click”,  () => deleteTodo(todo.id));    
+    
+  li.appendChild(span);    li.appendChild(delBtn);   todoList.appendChild(li);    
+}    
+    
+// Add new todo addBtn.addEventListener(“click”,  async () => {   const title = newTodoInput.value.trim();    
+  if (!title) return;    
+    
+  const res = await fetch(`${API_URL}/todos`, {     method:  
+“POST”,    
+    headers: {    
+      “Content-Type”: “application/json”,    
+      Authorization: `Bearer ${localStorage.getItem(“token”)}`,    
+    },    
+    Body: JSON.stringify({ title }),    
+  });    
+    
+  If (res.ok) {    
+    Const newTodo = await res.json();      
+renderTodo(newTodo);     newTodoInput.value  
+= “”;    
+  }    
+});
